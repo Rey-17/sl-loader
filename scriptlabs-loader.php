@@ -27,7 +27,7 @@ defined( 'ABSPATH' ) or die( "No script kiddies please!" );
 define( 'SL_LOADER_PATH', plugin_dir_path( __FILE__ ) );
 define( 'SL_LOADER_URL', trailingslashit( plugins_url( '/', __FILE__ ) ) );
 
-//$curLang = substr(get_bloginfo( 'language' ), 0, 2);
+add_shortcode('sl-loader', 'sl_loader_short');
 
 /**
  * Función que agrega al menú del adminditrador, nuestro acceso al plugin
@@ -43,7 +43,6 @@ add_action( 'admin_menu', 'slloader_admin' );
  */
 function slloader_show_admin(){
   $id_image =  get_option( 'media_selector_attachment_id', 0 );
-  $url = '';
 
   if($id_image != 0)
   {
@@ -94,14 +93,17 @@ function slloader_show_admin(){
 
 }
 
-
-add_action( 'admin_footer', 'media_selector_print_scripts' );
-
 function add_scripts() {
-  wp_enqueue_script( 'sl-loader-script', SL_LOADER_URL . 'js/init.js' , array('jquery'),'1.0.0',true  );
+  wp_enqueue_script( 'sl-loader-script', SL_LOADER_URL . 'js/init.js' , array('jquery'),'1.0.0',true );
 }
 
 if(is_admin()){
-  wp_enqueue_script( 'sl-loader-script', SL_LOADER_URL . 'js/init.js' , array('jquery'),'1.0.0',true  );
+  wp_enqueue_script( 'sl-loader-script', SL_LOADER_URL . 'js/init.js' , array('jquery'),'1.0.0',true );
+}
+
+function sl_loader_short(){
+  if (! is_admin()) {
+    include(SL_LOADER_PATH . 'frontend/loader.php');
+ }
 }
 
