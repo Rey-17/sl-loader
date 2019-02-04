@@ -32,10 +32,13 @@ function show_html_content(){
             }
 
             #loading-image {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            z-index: 100;
+                position:absolute; 
+                left:0; right:0;
+                top:0; bottom:0;
+                margin:auto;
+                overflow:auto;
+                width: 150px !important;
+                height: 150px !important;
             }
 
         </style>
@@ -46,7 +49,7 @@ function show_html_content(){
                 e.preventDefault();
                 jQuery('#loading').css('display', 'block');
                 setTimeout( () => {
-                    //e.currentTarget.submit();
+                    e.currentTarget.submit();
                 }, 3);
             });
 
